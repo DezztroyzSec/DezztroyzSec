@@ -1,0 +1,4 @@
+- 👋 Hi, I’m @DezztroyzSec
+- 👀 I’m interested in Hacking etc.
+- 🌱 I’m currently learning Hacking
+- Im Very Young but dont say someone (:
