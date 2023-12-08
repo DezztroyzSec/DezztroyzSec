@@ -1,0 +1,95 @@
+import turtle
+import time
+import random
+
+delay = 0.1
+
+# Fenster einrichten
+wn = turtle.Screen()
+wn.title("Snake Game")
+wn.bgcolor("black")
+wn.setup(width=600, height=600)
+wn.tracer(0)  # Schaltet die Bildaktualisierung aus
+
+# Schlange
+snake = turtle.Turtle()
+snake.speed(0)
+snake.shape("square")
+snake.color("white")
+snake.penup()
+snake.goto(0, 0)
+snake.direction = "Right"
+
+# Essen
+food = turtle.Turtle()
+food.speed(0)
+food.shape("circle")
+food.color("red")
+food.penup()
+food.goto(0, 100)
+
+# Funktionen
+def go_up():
+    if snake.direction != "Down":
+        snake.direction = "Up"
+
+def go_down():
+    if snake.direction != "Up":
+        snake.direction = "Down"
+
+def go_left():
+    if snake.direction != "Right":
+        snake.direction = "Left"
+
+def go_right():
+    if snake.direction != "Left":
+        snake.direction = "Right"
+
+def move():
+    if snake.direction == "Up":
+        y = snake.ycor()
+        snake.sety(y + 20)
+
+    if snake.direction == "Down":
+        y = snake.ycor()
+        snake.sety(y - 20)
+
+    if snake.direction == "Left":
+        x = snake.xcor()
+        snake.setx(x - 20)
+
+    if snake.direction == "Right":
+        x = snake.xcor()
+        snake.setx(x + 20)
+
+# Tastaturereignisse
+wn.listen()
+wn.onkeypress(go_up, "w")
+wn.onkeypress(go_down, "s")
+wn.onkeypress(go_left, "a")
+wn.onkeypress(go_right, "d")
+
+# Hauptspielschleife
+while True:
+    wn.update()
+
+    # Kollisionsprüfungen
+    if (
+        snake.xcor() > 290 or snake.xcor() < -290 or
+        snake.ycor() > 290 or snake.ycor() < -290
+    ):
+        time.sleep(1)
+        snake.goto(0, 0)
+        snake.direction = "Right"
+        delay = 0.1
+
+    # Essen aufnehmen
+    if (
+        snake.xcor() == food.xcor() and
+        snake.ycor() == food.ycor()
+    ):
+        food.goto(random.randint(-290, 290), random.randint(-290, 290))
+
+    move()
+
+    time.sleep(delay)
