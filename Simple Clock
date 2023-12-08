@@ -1,0 +1,24 @@
+import tkinter as tk
+from time import strftime
+
+class ClockApp:
+    def __init__(self, master):
+        self.master = master
+        self.master.title("Uhr")
+        self.master.geometry("400x200")  # Setzen Sie die Größe des Fensters nach Bedarf
+
+        self.time_label = tk.Label(self.master, font=("Helvetica", 48), background="black", foreground="white")
+        self.time_label.pack(anchor="center", pady=20)
+
+        self.update_time()
+        self.master.after(1000, self.update_time)
+
+    def update_time(self):
+        current_time = strftime("%H:%M:%S %p")
+        self.time_label.configure(text=current_time)
+        self.master.after(1000, self.update_time)
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = ClockApp(root)
+    root.mainloop()
